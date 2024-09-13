@@ -1,0 +1,68 @@
+/* General Styles */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #343a40;
+    color: white;
+    padding: 15px;
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Main Container */
+.container {
+    flex: 1; /* This ensures the main content area grows to fill space */
+    padding: 20px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Table Styles */
+table {
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: center;
+}
+
+th {
+    background-color: #343a40;
+    color: white;
+    cursor: pointer;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Chart Styles */
+canvas {
+    margin-bottom: 40px;
+}
+
+/* Footer Position */
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}

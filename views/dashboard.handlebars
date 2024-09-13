@@ -1,0 +1,92 @@
+
+<!-- Line Chart -->
+<h2>New Listings Per Month</h2>
+<canvas id="myChart" width="400" height="200"></canvas>
+
+<!-- Table to display broker data -->
+<h2 class="mt-5">Broker Data Table</h2>
+<table id="brokerTable" class="table table-hover table-bordered text-center align-middle">
+    <thead class="table-dark">
+    <tr>
+        <th scope="col">Broker</th>
+        <th scope="col">Month</th>
+        <th scope="col">New Listings</th>
+        <th scope="col">Average Revenue</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each data}}
+        <tr>
+            <td>{{broker}}</td>
+            <td>{{listing_month}}</td>
+            <td>{{new_listings}}</td>
+            <td>{{avg_revenue}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+
+<!-- Initialize DataTables -->
+<script>
+    $(document).ready(function() {
+        $('#brokerTable').DataTable({
+            paging: true,       // Enable pagination
+            searching: true,    // Enable searching
+            ordering: true,     // Enable sorting
+            order: [[1, 'asc']] // Default sort by the "Month" column
+        });
+    });
+</script>
+
+
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    // Function to generate random RGB colors
+    function getRandomColor() {
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        return `rgba(${r}, ${g}, ${b}, 1)`;
+    }
+
+    // Prepare chart data for each broker
+    const datasets = [
+        {{#each chartData}}
+            {
+                label: '{{broker}}',
+                data: [{{#each listings}}{{this}},{{/each}}],
+                borderColor: getRandomColor(), // Use the function to generate random colors
+                borderWidth: 1,
+                fill: false
+            },
+        {{/each}}
+    ];
+
+    const months = [{{#each chartData.[0].months}}"{{this}}",{{/each}}]; // Get the month labels from one broker
+
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: months,  // Same months for all brokers
+            datasets: datasets // Each broker gets its own line
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Month'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'New Listings'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
